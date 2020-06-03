@@ -1,0 +1,21 @@
+{% extends 'layout.html' %}
+
+{% block content %}
+
+	<h1> {{ title }} </h1>
+
+	<form>
+		{{ form.email.label(style='display:block') }}
+		{{ form.email(style='margin-bottom:25px') }}
+
+		{{ form.password.label(style='display:block') }}
+		{{ form.password(style='margin-bottom:25px') }}
+
+		{{ form.submit.label(style='display:block') }}
+		{{ form.submit(style='margin-bottom:25px') }}
+
+		{{ form.rememberme.label(style='display:block') }}
+		{{ form.rememberme(style='margin-bottom:25px') }}
+	</form>
+
+{% endblock %}

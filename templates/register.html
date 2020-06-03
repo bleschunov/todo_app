@@ -1,0 +1,25 @@
+{% extends 'layout.html' %}
+
+{% block content %}
+
+	<h1> {{ title }} </h1>
+
+	<form>
+		{{ form.username.label(style='display:block') }}
+		{{ form.username(style='margin-bottom:25px') }}
+
+		{{ form.email.label(style='display:block') }}
+		{{ form.email(style='margin-bottom:25px') }}
+
+		{{ form.password.label(style='display:block') }}
+		{{ form.password(style='margin-bottom:25px') }}
+
+		{{ form.confirm_password.label(style='display:block') }}
+		{{ form.confirm_password(style='margin-bottom:25px') }}
+
+		{{ form.submit.label(style='display:block') }}
+		{{ form.submit(style='margin-bottom:25px') }}
+		
+	</form>
+
+{% endblock %}

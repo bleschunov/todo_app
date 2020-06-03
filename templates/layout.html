@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<title>
+			{% if title %}
+				ToDo App - {{ title }}
+			{% else %}
+				ToDo App
+			{% endif %}
+		</title>
+		<meta charset="UTF-8" />
+		<link rel='stylesheet' href='../static/main.css' />
+	</head>
+	<body>
+
+		<!-- The menu (header) -->
+		<ul>
+			<li><a href = "authorization">Log In</a></li>
+			<li><a href = "registration">Sign Up</a></li>
+		</ul>
+
+		<!-- The main part --> 
+		{% block content %}{% endblock %}
+
+
+	</body>
+</html>
