@@ -1,13 +1,5 @@
-from flask import Flask, render_template, redirect, url_for
-from forms import RegistrationForm, AuthorizationForm
-from flask_sqlalchemy import SQLAlchemy
+from app import db
 from datetime import datetime
-
-app = Flask(__name__)
-app.config['SECRET_KEY'] = 'c4e928aed3d42753f492642344712767'
-app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///site.db'
-app.config['SQLALCHEMY_TRACK_MODIFICATIONS '] = False
-db = SQLAlchemy(app) 
 
 class User(db.Model):
 
@@ -32,21 +24,3 @@ class Task(db.Model):
 
 	def __repr__(self):
 		return f"Task('{self.title}', '{self.date_posted}', 'Is done: {self.is_done}')"
-
-
-@app.route('/')
-def index():
-	return redirect(url_for('register'))
-
-@app.route('/authorization')
-def authorize():
-	form = AuthorizationForm()
-	return render_template('authorize.html', title = 'Authorization', form = form)
-
-@app.route('/registration')
-def register():
-	form = RegistrationForm()
-	return render_template('register.html', title = 'Registration', form = form)
-
-if __name__ == '__main__':
-	app.run(debug = True)
