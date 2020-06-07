@@ -29,7 +29,7 @@ def authorize():
 				else: return redirect(url_for('account'))
 
 			else:
-				flash('Login Unsuccessful. Please check email and password')
+				flash('Login Unsuccessful. Please check email and password', 'success')
 				return redirect('account')
 
 		else: return render_template('authorize.html', title = 'Authorization', form = form, users = users)
@@ -52,7 +52,7 @@ def register():
 			user = User(username = form.username.data, email = form.email.data, password = password_hashed)
 			db.session.add(user)
 			db.session.commit()
-			flash('The user is successfully created.')
+			flash('The user is successfully created.', 'success')
 			return redirect(url_for('authorize'))
 
 		else: return render_template('register.html', title = 'Registration', form = form)
@@ -74,7 +74,7 @@ def account():
 		task = Task(title = form.title.data, content = form.content.data, author=current_user)
 		db.session.add(task)
 		db.session.commit()
-		flash('The task is successfully created.')
+		flash('The task is successfully created.', 'success')
 		return redirect('account')
 	else: return render_template('account.html', title = 'Account', form = form, tasks = tasks)
 
@@ -86,7 +86,7 @@ def task(task_id):
 	if task:
 		return render_template('task.html', task = task)
 	else: 
-		flash('The task does not exist.')
+		flash('The task does not exist.', 'danger')
 		return redirect(url_for('account'))
 
 @app.route('/task/<int:task_id>/done')
@@ -97,7 +97,7 @@ def done_task(task_id):
 	if task:
 		task.is_done = True
 		db.session.commit()
-		flash('The task is done now!')
+		flash('The task is done now!', 'info')
 		return redirect(url_for('account'))
 	else:
 		flash('The task does not exist.')
@@ -116,9 +116,9 @@ def remove_task(task_id):
 	if task:
 		db.session.delete(task)
 		db.session.commit()
-		flash('The task is successfully deleted.')
+		flash('The task is successfully deleted.', 'success')
 		return redirect(url_for('account'))
 	else:
-		flash('The task does not exist.')
+		flash('The task does not exist.', 'danger')
 		return redirect(url_for('account'))
 
