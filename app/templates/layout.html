@@ -9,19 +9,25 @@
 			{% endif %}
 		</title>
 		<meta charset="UTF-8" />
-		<link rel='stylesheet' href='../static/main.css' />
+		<link rel='stylesheet' href='{{ url_for("static", filename="css/main.css") }}' />
 	</head>
 	<body>
 
 		<!-- The menu (header) -->
 		<ul>
-			<li><a href = "authorization">Log In</a></li>
-			<li><a href = "registration">Sign Up</a></li>
+			{% if not current_user.is_authenticated %}
+				<li><a href="{{ url_for('authorize')}}">Log In</a></li>
+				<li><a href="{{ url_for('register')}}">Sign Up</a></li>
+			{% endif %}
+			{% if current_user.is_authenticated %}
+				<li><a href="{{ url_for('account')}}">Account</a></li>
+				<li><a href="{{ url_for('logout')}}">Logout</a></li>
+			{% endif %}
 		</ul>
 
 		<!-- The main part --> 
 		{% block content %}{% endblock %}
 
-
+		<script src='{{ url_for("static", filename="js/main.js") }}'></script>
 	</body>
 </html>

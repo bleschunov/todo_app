@@ -1,0 +1,16 @@
+.mb-5 {
+	margin-bottom: 25px;
+}
+
+.display-b {
+	display: block;
+}
+
+.classic-table th {
+	border: 1px grey dashed;
+	padding: 6px;
+}
+
+.classic-table tr:nth-child(odd) {
+	background-color: rgb(255,231,139);
+}

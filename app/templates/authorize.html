@@ -4,18 +4,77 @@
 
 	<h1> {{ title }} </h1>
 
-	<form>
-		{{ form.email.label(style='display:block') }}
-		{{ form.email(style='margin-bottom:25px') }}
+	<!-- Get status message -->
+	{% with messages = get_flashed_messages() %}
+		{% if messages %}
+			{% for message in messages %}
+				<span>{{ message }}</span>
+			{% endfor %}
+		{% endif %}
+	{% endwith %}
 
-		{{ form.password.label(style='display:block') }}
-		{{ form.password(style='margin-bottom:25px') }}
+	<form method='POST'>
 
-		{{ form.submit.label(style='display:block') }}
-		{{ form.submit(style='margin-bottom:25px') }}
+		{{ form.hidden_tag() }}
 
-		{{ form.rememberme.label(style='display:block') }}
-		{{ form.rememberme(style='margin-bottom:25px') }}
+		<div class='mb-5'>
+			{{ form.email.label(class='display-b') }}
+
+			{% if form.email.errors %}
+				{{ form.email() }}
+				<!-- Block of errors -->
+				<div> 
+				{% for error in form.email.errors %}
+					<span>{{ error }}</span>
+				{% endfor %}
+				</div>
+
+			{% else %}
+
+				{{ form.email() }}
+
+			{% endif %}
+		</div>
+
+		<div class='mb-5'>
+			{{ form.password.label(class='display-b') }}
+
+			{% if form.password.errors %}
+				{{ form.password() }}
+				<!-- Block of errors -->
+				<div> 
+				{% for error in form.password.errors %}
+					<span>{{ error }}</span>
+				{% endfor %}
+				</div>
+
+			{% else %}
+
+				{{ form.password() }}
+
+			{% endif %}
+		</div>
+
+		<div class='mb-5'>
+			{{ form.submit.label(class='display-b') }}
+			{{ form.submit() }}
+		</div>
+
+		<div class='mb-5'>
+			{{ form.remember_me.label(class='display-b') }}
+			{{ form.remember_me() }}
+		</div>
 	</form>
+
+	<!-- TEMPORARY SECTIONS -->
+	<h1>All registered users</h1>
+	<h2>Temporary section</h2>
+
+	{% for user in users %}
+
+		{{ user }}
+		<br />
+
+	{% endfor %}
 
 {% endblock %}

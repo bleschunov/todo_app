@@ -4,21 +4,96 @@
 
 	<h1> {{ title }} </h1>
 
-	<form>
-		{{ form.username.label(style='display:block') }}
-		{{ form.username(style='margin-bottom:25px') }}
+	<!-- Get status message -->
+	{% with messages = get_flashed_messages() %}
+		{% if messages %}
+			{% for message in messages %}
+				<span>{{ message }}</span>
+			{% endfor %}
+		{% endif %}
+	{% endwith %}
 
-		{{ form.email.label(style='display:block') }}
-		{{ form.email(style='margin-bottom:25px') }}
+	<form method='POST'>
 
-		{{ form.password.label(style='display:block') }}
-		{{ form.password(style='margin-bottom:25px') }}
+		{{ form.hidden_tag() }}
 
-		{{ form.confirm_password.label(style='display:block') }}
-		{{ form.confirm_password(style='margin-bottom:25px') }}
+		<div class='mb-5'>
+			{{ form.username.label(class='display-b') }}
 
-		{{ form.submit.label(style='display:block') }}
-		{{ form.submit(style='margin-bottom:25px') }}
+			{% if form.username.errors %}
+				{{ form.username() }}
+				<!-- Block of errors -->
+				<div> 
+				{% for error in form.username.errors %}
+					<span>{{ error }}</span>
+				{% endfor %}
+				</div>
+
+			{% else %}
+
+				{{ form.username() }}
+
+			{% endif %}
+		</div>
+
+		<div class='mb-5'>
+			{{ form.email.label(class='display-b') }}
+			{% if form.email.errors %}
+				{{ form.email() }}
+				<!-- Block of errors -->
+				<div> 
+				{% for error in form.email.errors %}
+					<span>{{ error }}</span>
+				{% endfor %}
+				</div>
+
+			{% else %}
+
+				{{ form.email() }}
+
+			{% endif %}
+		</div>
+
+		<div class='mb-5'>
+			{{ form.password.label(class='display-b') }}
+			{% if form.password.errors %}
+				{{ form.password() }}
+				<!-- Block of errors -->
+				<div> 
+				{% for error in form.password.errors %}
+					<span>{{ error }}</span>
+				{% endfor %}
+				</div>
+
+			{% else %}
+
+				{{ form.password() }}
+
+			{% endif %}
+		</div>
+
+		<div class='mb-5'>
+			{{ form.confirm_password.label(class='display-b') }}
+			{% if form.confirm_password.errors %}
+				{{ form.confirm_password() }}
+				<!-- Block of errors -->
+				<div> 
+				{% for error in form.confirm_password.errors %}
+					<span>{{ error }}</span>
+				{% endfor %}
+				</div>
+
+			{% else %}
+
+				{{ form.confirm_password() }}
+
+			{% endif %}
+		</div>
+
+		<div class='mb-5'>
+			{{ form.submit.label(class='display-b') }}
+			{{ form.submit() }}
+		</div>
 		
 	</form>
 

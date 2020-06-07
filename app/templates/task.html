@@ -1,0 +1,14 @@
+{% extends 'layout.html' %}
+{% block content %}
+
+	<h1>{{ task.title }}</h1>
+	<p>{{ task.content }}</p>
+	<p>Date posted is {{ task.date_posted }}</p>
+	<span>
+		Is done:
+		{% if task.is_done %} Yes
+		{% else %} No
+		{% endif %}
+	</span>
+
+{% endblock %}

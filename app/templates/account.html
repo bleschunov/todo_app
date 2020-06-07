@@ -1,0 +1,92 @@
+{% extends 'layout.html' %}
+{% block content %}
+
+	<h1>{{ title }}</h1>
+	<h2>Hello, {{ current_user.username }}!</h2>
+
+	<!-- Get status message -->
+	{% with messages = get_flashed_messages() %}
+		{% if messages %}
+			{% for message in messages %}
+				<span>{{ message }}</span>
+			{% endfor %}
+		{% endif %}
+	{% endwith %}	
+
+	<form method='POST'>
+
+		{{ form.hidden_tag() }}
+
+		<div class='mb-5'>
+			{{ form.title.label(class='display-b') }}
+
+			{% if form.title.errors %}
+				{{ form.title() }}
+				<!-- Block of errors -->
+				<div> 
+				{% for error in form.title.errors %}
+					<span>{{ error }}</span>
+				{% endfor %}
+				</div>
+
+			{% else %}
+
+				{{ form.title() }}
+
+			{% endif %}
+		</div>
+
+		<div class='mb-5'>
+			{{ form.content.label(class='display-b') }}
+			{{ form.content() }}
+		</div>
+
+		<div class='mb-5'>
+			{{ form.submit.label(class='display-b') }}
+			{{ form.submit() }}
+		</div>
+
+		</form>
+
+		{% if current_user.is_authenticated %}
+			<a href='{{ url_for("remove_account") }}'>Remove my account</a>
+		{% endif %}
+
+		<!-- TEMPORARY SECTIONS -->
+		<h1>My tasks</h1>
+
+		<table class='classic-table'>
+			<tr>
+				<th>Title</th>
+				<th>Content</th>
+				<th>Date Posted</th>
+				<th>Done</th>
+				<th></th>
+			</tr>
+
+			{% for task in tasks %}
+				<tr>
+					<th>{{ task.title }}</th>
+					<th>
+						{% if task.content[21] %}
+							{{ task.content[:20] }} ...
+						{% else %}
+							{{ task.content }}
+						{% endif %}
+					</th>
+					<th>{{ task.date_posted }}</th>
+					<th>{{ task.is_done }}</th>
+					<th>
+						<a href='{{ url_for("remove_task", task_id = task.id) }}'>Delete</a>
+						<a href='{{ url_for("task", task_id = task.id) }}'>Show</a>
+						{% if not task.is_done %}
+							<a href='{{ url_for("done_task", task_id = task.id ) }}'>Done</a>
+						{% endif %}
+					</th>
+				</tr>
+
+			{% endfor %}
+
+		</table>
+
+{% endblock %}
